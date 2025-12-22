@@ -1,134 +1,102 @@
-You are a senior software engineer writing a README.md
-for a “Build From Scratch” hackathon project.
+CineBrew
 
-This is NOT a marketing document.
-This is a technical, honest, judge-facing README.
+A custom programming language with a compiler, stack-based virtual machine, and runtime library, built from scratch.
 
-The project is a custom programming language with:
-- a compiler
-- a virtual machine
-- a runtime
-- an experimental GUI (not production-ready)
+Overview
 
-DO NOT invent features.
-DO NOT exaggerate capabilities.
-DO NOT use hype words.
-DO NOT sound like an AI.
+CineBrew is an educational systems project that implements a complete language toolchain. It includes a lexer, recursive-descent parser, semantic analyzer, code generator, bytecode interpreter, and a small runtime library. The project demonstrates the core layers of a programming language: compilation to an intermediate representation and execution on a virtual machine.
 
-────────────────────────
-README REQUIREMENTS
-────────────────────────
+The goal is to show how a simple imperative language can be implemented end-to-end without external compiler tools or language frameworks. CineBrew compiles to a text-based bytecode format that runs on a stack-based interpreter. The language supports variables, functions, control flow, and basic I/O.
 
-Write a SINGLE README.md with the following sections ONLY,
-in this exact order:
+What Was Built From Scratch
 
-────────────────────────
-1. Project Title + One-Line Description
-────────────────────────
-- Simple, professional title
-- One sentence describing what it is
+- Lexer: Tokenization with 31 token types and 11 keywords
+- Parser: Recursive-descent parser constructing an abstract syntax tree (15 node types)
+- Semantic analyzer: Symbol table, variable and function validation
+- Code generator: AST to text-based bytecode
+- Virtual machine: Stack-based interpreter with function frames
+- Runtime: 14 built-in functions (I/O, math, timing, graphics stubs)
+- Game loop: Frame-timed update/render pattern
+- CLI interface: Single entry point for compilation and execution
 
-────────────────────────
-2. Overview
-────────────────────────
-- 2–3 short paragraphs
-- Explain:
-  - Why this project exists
-  - What was built from scratch
-  - What problem it solves (learning / systems focus is fine)
+Architecture Overview
 
-────────────────────────
-3. What Was Built From Scratch
-────────────────────────
-Bullet list, explicit and honest.
-Examples:
-- Lexer & parser
-- Bytecode / IR
-- Virtual machine
-- Runtime system
-- CLI interface
-
-No fluff.
-
-────────────────────────
-4. Architecture Overview
-────────────────────────
-- Short explanation of the execution flow
-- Include a SIMPLE ASCII diagram, for example:
+The compiler pipeline takes source code, tokenizes it, parses into an AST, validates semantically, and generates bytecode. The bytecode is then executed by the VM:
 
   Source Code (.cb)
-        ↓
-     Compiler
-        ↓
-     Bytecode
-        ↓
-        VM
-        ↓
-     Output
+       ↓
+    Lexer (tokenize)
+       ↓
+    Parser (AST)
+       ↓
+    Semantic (validate)
+       ↓
+    CodeGen (bytecode)
+       ↓
+    VM (execute)
+       ↓
+    Output (stdout)
 
-Keep it minimal.
+Project Structure
 
-────────────────────────
-5. Project Structure
-────────────────────────
-Explain each top-level folder in 1 line:
-- compiler/
-- vm/
-- runtime/
-- gui/
-- examples/
+- src/compiler: Lexer, parser, AST nodes, semantic analyzer, code generator
+- src/vm: Stack-based virtual machine and instruction dispatch
+- src/runtime: Built-in functions for I/O, math, and timing
+- src/gui: Game loop and console-based window stub
+- examples: Sample programs (hello.cb, factorial.cb, pong_game.cb)
+- tests: 8 test suites covering lexer, parser, semantic, codegen, VM, and runtime
+- docs: Language specification, bytecode reference, architecture notes
 
-────────────────────────
-6. How to Build
-────────────────────────
-Exact commands.
-Assume a fresh clone.
-No assumptions about IDEs.
+How to Build
 
-────────────────────────
-7. How to Run Programs
-────────────────────────
-Show:
-- How to run a sample program
-- Example command
-- Expected type of output (text-based)
+Requirements: C++17 compiler, CMake 3.10+
 
-────────────────────────
-8. Example Program
-────────────────────────
-Show a VERY small example of the language
-(5–10 lines max).
+Clone and build:
 
-────────────────────────
-9. Known Limitations
-────────────────────────
-Be honest.
-Mention:
-- GUI is experimental / stubbed
-- Performance is not optimized
-- Language features are limited by design
+  git clone <repository>
+  cd <repository>
+  mkdir build && cd build
+  cmake ..
+  cmake --build .
 
-This section is CRITICAL for credibility.
+Or on Windows with PowerShell:
 
-────────────────────────
-10. Hackathon Context
-────────────────────────
-One short paragraph:
-- Built during a limited-time hackathon
-- Focused on systems fundamentals
-- Trade-offs were intentional
+  .\build.ps1
 
-────────────────────────
-STYLE RULES
-────────────────────────
-- Clear, technical, human-written
-- Slightly imperfect is OK
-- No emojis
-- No hype words (revolutionary, cutting-edge, etc.)
-- No AI voice
+Executables are placed in build/bin/ after a successful build.
 
-Generate ONLY the README.md content.
-Do not explain your choices.
-Do not add extra sections.
+How to Run Programs
 
-Proceed.
+Run a CineBrew program:
+
+  ./build/bin/cinebrew examples/hello.cb
+
+Or using the helper script:
+
+  ./run.sh examples/hello.cb          # Linux/macOS
+  .\run.bat examples/hello.cb         # Windows
+
+The output is text-based and printed to stdout.
+
+Example Program
+
+A simple program that prints a message:
+
+  TAKE greeting
+  POUR greeting = "Hello, World!"
+  SHOT Print greeting
+
+Variables are declared with TAKE, assigned with POUR, and functions are called with SHOT. The runtime Print function outputs to stdout.
+
+Known Limitations
+
+- GUI is a console-based stub. No graphics are rendered; drawing functions print debug output.
+- Language features are intentionally minimal: integers, strings, functions, if/else, loops. No arrays, objects, or pointer semantics.
+- Performance is not optimized. The bytecode interpreter is single-pass; no caching or JIT.
+- Bytecode is text-based and not optimized for size or speed.
+- No standard library beyond 14 built-in functions.
+- Error messages are basic and may not always point to the exact line.
+
+Hackathon Context
+
+This project was built during a limited-time hackathon focused on systems fundamentals. The goal was to demonstrate understanding of compiler design and virtual machine implementation, not to build a production language. Time constraints meant focusing on correctness and architectural clarity over performance or feature completeness. Trade-offs were made intentionally: the GUI is stubbed, the language is small, and the bytecode format is simple and readable rather than optimized.
