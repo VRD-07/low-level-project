@@ -1,158 +1,102 @@
 CineBrew
 
-A small programming language implemented from scratch, featuring a compiler, a stack-based virtual machine, and a runtime environment.
+A custom programming language with a compiler, stack-based virtual machine, and runtime library, built from scratch.
 
 Overview
 
-CineBrew is a systems-level programming language project that implements a complete language toolchain end to end. It includes lexical analysis, parsing, semantic validation, bytecode generation, and execution on a custom-built virtual machine.
+CineBrew is an educational systems project that implements a complete language toolchain. It includes a lexer, recursive-descent parser, semantic analyzer, code generator, bytecode interpreter, and a small runtime library. The project demonstrates the core layers of a programming language: compilation to an intermediate representation and execution on a virtual machine.
 
-The project is intentionally minimal and explicit. Instead of relying on external compiler frameworks or VM libraries, every major component is implemented manually to expose how programming languages actually work beneath the surface. Source code is compiled into a readable, text-based bytecode format and executed on a stack-based interpreter.
-
-CineBrew is designed as an educational and experimental system. It prioritizes clarity of architecture and correctness of execution over performance or feature breadth.
+The goal is to show how a simple imperative language can be implemented end-to-end without external compiler tools or language frameworks. CineBrew compiles to a text-based bytecode format that runs on a stack-based interpreter. The language supports variables, functions, control flow, and basic I/O.
 
 What Was Built From Scratch
 
-Lexer
-Manual tokenization with 31 token types and 11 language keywords.
-
-Parser
-Recursive-descent parser producing an abstract syntax tree (15 node types).
-
-Semantic Analyzer
-Symbol tables and validation for variables and functions.
-
-Code Generator
-AST to text-based bytecode transformation.
-
-Virtual Machine
-Stack-based bytecode interpreter with function frames and control flow.
-
-Runtime System
-14 built-in functions for I/O, math, timing, and graphics stubs.
-
-Game Loop
-Frame-timed update/render structure (console-backed).
-
-Command-Line Interface
-Single executable for compilation and execution.
+- Lexer: Tokenization with 31 token types and 11 keywords
+- Parser: Recursive-descent parser constructing an abstract syntax tree (15 node types)
+- Semantic analyzer: Symbol table, variable and function validation
+- Code generator: AST to text-based bytecode
+- Virtual machine: Stack-based interpreter with function frames
+- Runtime: 14 built-in functions (I/O, math, timing, graphics stubs)
+- Game loop: Frame-timed update/render pattern
+- CLI interface: Single entry point for compilation and execution
 
 Architecture Overview
 
-CineBrew follows a classic compiler + VM pipeline. Each stage is explicit and independently inspectable.
+The compiler pipeline takes source code, tokenizes it, parses into an AST, validates semantically, and generates bytecode. The bytecode is then executed by the VM:
 
-Source Code (.cb)
-        ↓
-      Lexer
-        ↓
-      Parser
-        ↓
- Semantic Analysis
-        ↓
-  Bytecode Generator
-        ↓
-  Stack-Based VM
-        ↓
-      Output
-
-
-The bytecode format is human-readable by design, making execution behavior easy to trace and debug.
+  Source Code (.cb)
+       ↓
+    Lexer (tokenize)
+       ↓
+    Parser (AST)
+       ↓
+    Semantic (validate)
+       ↓
+    CodeGen (bytecode)
+       ↓
+    VM (execute)
+       ↓
+    Output (stdout)
 
 Project Structure
 
-src/compiler/
-Lexer, parser, AST nodes, semantic analysis, and code generation.
-
-src/vm/
-Virtual machine core and instruction dispatch loop.
-
-src/runtime/
-Built-in functions and shared runtime utilities.
-
-src/gui/
-Console-based game loop and rendering stubs.
-
-examples/
-Sample programs (hello, factorial, pong logic).
-
-tests/
-Test suites covering lexer, parser, semantic analysis, code generation, VM, and runtime.
-
-docs/
-Language specification, bytecode reference, and architecture notes.
+- src/compiler: Lexer, parser, AST nodes, semantic analyzer, code generator
+- src/vm: Stack-based virtual machine and instruction dispatch
+- src/runtime: Built-in functions for I/O, math, and timing
+- src/gui: Game loop and console-based window stub
+- examples: Sample programs (hello.cb, factorial.cb, pong_game.cb)
+- tests: 8 test suites covering lexer, parser, semantic, codegen, VM, and runtime
+- docs: Language specification, bytecode reference, architecture notes
 
 How to Build
 
-Requirements
+Requirements: C++17 compiler, CMake 3.10+
 
-C++17 compatible compiler
+Clone and build:
 
-CMake 3.10+
+  git clone <repository>
+  cd <repository>
+  mkdir build && cd build
+  cmake ..
+  cmake --build .
 
-Build from a fresh clone:
+Or on Windows with PowerShell:
 
-git clone <repo-url>
-cd cinebrew
-mkdir build && cd build
-cmake ..
-cmake --build .
+  .\build.ps1
 
-
-On Windows (PowerShell):
-
-.\build.ps1
-
-
-The executable is generated in build/bin/.
+Executables are placed in build/bin/ after a successful build.
 
 How to Run Programs
 
-Run a CineBrew source file directly:
+Run a CineBrew program:
 
-./build/bin/cinebrew examples/hello.cb
+  ./build/bin/cinebrew examples/hello.cb
 
+Or using the helper script:
 
-Or using helper scripts:
+  ./run.sh examples/hello.cb          # Linux/macOS
+  .\run.bat examples/hello.cb         # Windows
 
-./run.sh examples/hello.cb     # Linux / macOS
-.\run.bat examples\hello.cb    # Windows
-
-
-Program output is printed to standard output.
+The output is text-based and printed to stdout.
 
 Example Program
 
-A minimal CineBrew program:
+A simple program that prints a message:
 
-TAKE greeting
-POUR greeting = "Hello, World!"
-SHOT Print greeting
+  TAKE greeting
+  POUR greeting = "Hello, World!"
+  SHOT Print greeting
 
-
-TAKE declares a variable
-
-POUR assigns a value
-
-SHOT invokes a function
-
-The Print function is provided by the runtime and writes to stdout.
+Variables are declared with TAKE, assigned with POUR, and functions are called with SHOT. The runtime Print function outputs to stdout.
 
 Known Limitations
 
-The GUI is a console-backed stub. No actual graphics are rendered; draw calls emit debug output.
-
-The language is intentionally small: integers, strings, functions, conditionals, and loops.
-There are no arrays, objects, or pointers.
-
-The virtual machine is not optimized. There is no bytecode caching, JIT compilation, or parallel execution.
-
-Bytecode is text-based and favors readability over compactness or speed.
-
-Error reporting is basic and may not always point to exact source locations.
-
-The runtime library is minimal and limited to 14 built-in functions.
+- GUI is a console-based stub. No graphics are rendered; drawing functions print debug output.
+- Language features are intentionally minimal: integers, strings, functions, if/else, loops. No arrays, objects, or pointer semantics.
+- Performance is not optimized. The bytecode interpreter is single-pass; no caching or JIT.
+- Bytecode is text-based and not optimized for size or speed.
+- No standard library beyond 14 built-in functions.
+- Error messages are basic and may not always point to the exact line.
 
 Hackathon Context
 
-CineBrew was developed during a limited-time hackathon focused on building systems from scratch. The intent was not to create a production-ready language, but to demonstrate a clear understanding of compiler construction, virtual machine design, and runtime execution.
-
-Given time constraints, design decisions favored architectural transparency and correctness over performance and feature completeness. The GUI remains stubbed, the language remains small, and the bytecode format remains readable — all intentional trade-offs to keep the system understandable and inspectable.
+This project was built during a limited-time hackathon focused on systems fundamentals. The goal was to demonstrate understanding of compiler design and virtual machine implementation, not to build a production language. Time constraints meant focusing on correctness and architectural clarity over performance or feature completeness. Trade-offs were made intentionally: the GUI is stubbed, the language is small, and the bytecode format is simple and readable rather than optimized.
