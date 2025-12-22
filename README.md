@@ -1,36 +1,134 @@
-CineBrew — packaged
+You are a senior software engineer writing a README.md
+for a “Build From Scratch” hackathon project.
 
-This repository contains the CineBrew language, compiler, runtime and VM packaged for easy building and running.
+This is NOT a marketing document.
+This is a technical, honest, judge-facing README.
 
-Build (cross-platform, requires CMake & a C++17 toolchain):
+The project is a custom programming language with:
+- a compiler
+- a virtual machine
+- a runtime
+- an experimental GUI (not production-ready)
 
-  mkdir build && cd build
-  cmake ..
-  cmake --build .
+DO NOT invent features.
+DO NOT exaggerate capabilities.
+DO NOT use hype words.
+DO NOT sound like an AI.
 
-Or on Windows with PowerShell:
+────────────────────────
+README REQUIREMENTS
+────────────────────────
 
-  .\build.ps1
+Write a SINGLE README.md with the following sections ONLY,
+in this exact order:
 
-Run:
+────────────────────────
+1. Project Title + One-Line Description
+────────────────────────
+- Simple, professional title
+- One sentence describing what it is
 
-  ./build/bin/cinebrew examples/hello.cb
-  cinebrew run examples/hello.cb    # equivalent
+────────────────────────
+2. Overview
+────────────────────────
+- 2–3 short paragraphs
+- Explain:
+  - Why this project exists
+  - What was built from scratch
+  - What problem it solves (learning / systems focus is fine)
 
-Helper scripts:
+────────────────────────
+3. What Was Built From Scratch
+────────────────────────
+Bullet list, explicit and honest.
+Examples:
+- Lexer & parser
+- Bytecode / IR
+- Virtual machine
+- Runtime system
+- CLI interface
 
-  run.sh   # Linux/macOS: builds if needed and runs cinebrew with args
-  run.bat  # Windows: builds if needed and runs cinebrew with args
+No fluff.
 
-How to write a program:
+────────────────────────
+4. Architecture Overview
+────────────────────────
+- Short explanation of the execution flow
+- Include a SIMPLE ASCII diagram, for example:
 
-- Create a text file with `.cb` extension using CineBrew language constructs.
-- See `examples/hello.cb` and `examples/factorial.cb` for minimal programs.
+  Source Code (.cb)
+        ↓
+     Compiler
+        ↓
+     Bytecode
+        ↓
+        VM
+        ↓
+     Output
 
-Known limitations:
+Keep it minimal.
 
-- GUI is a console/backend stub; no SDL graphics by default.
-- Language is intentionally small (integers, strings, functions, control flow).
-- No command-line flags except `run` shorthand. Keep programs simple.
+────────────────────────
+5. Project Structure
+────────────────────────
+Explain each top-level folder in 1 line:
+- compiler/
+- vm/
+- runtime/
+- gui/
+- examples/
 
-This package does not change core compiler, VM, or runtime logic — only provides a single, documented entrypoint, simple build rules and run scripts for convenience.
+────────────────────────
+6. How to Build
+────────────────────────
+Exact commands.
+Assume a fresh clone.
+No assumptions about IDEs.
+
+────────────────────────
+7. How to Run Programs
+────────────────────────
+Show:
+- How to run a sample program
+- Example command
+- Expected type of output (text-based)
+
+────────────────────────
+8. Example Program
+────────────────────────
+Show a VERY small example of the language
+(5–10 lines max).
+
+────────────────────────
+9. Known Limitations
+────────────────────────
+Be honest.
+Mention:
+- GUI is experimental / stubbed
+- Performance is not optimized
+- Language features are limited by design
+
+This section is CRITICAL for credibility.
+
+────────────────────────
+10. Hackathon Context
+────────────────────────
+One short paragraph:
+- Built during a limited-time hackathon
+- Focused on systems fundamentals
+- Trade-offs were intentional
+
+────────────────────────
+STYLE RULES
+────────────────────────
+- Clear, technical, human-written
+- Slightly imperfect is OK
+- No emojis
+- No hype words (revolutionary, cutting-edge, etc.)
+- No AI voice
+
+Generate ONLY the README.md content.
+Do not explain your choices.
+Do not add extra sections.
+
+Proceed.
