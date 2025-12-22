@@ -1,0 +1,5 @@
+# CINEBREW - Hello World Example
+# Simple program that prints "Hello, World!"
+
+POUR "Hello, World!";
+

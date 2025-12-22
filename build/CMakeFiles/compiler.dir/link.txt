@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe qc libcompiler.a CMakeFiles/compiler.dir/src/compiler/lexer.cpp.obj CMakeFiles/compiler.dir/src/compiler/token.cpp.obj CMakeFiles/compiler.dir/src/compiler/parser.cpp.obj CMakeFiles/compiler.dir/src/compiler/ast.cpp.obj CMakeFiles/compiler.dir/src/compiler/semantic.cpp.obj CMakeFiles/compiler.dir/src/compiler/codegen.cpp.obj CMakeFiles/compiler.dir/src/compiler/compiler.cpp.obj
+C:\MinGW\bin\ranlib.exe libcompiler.a

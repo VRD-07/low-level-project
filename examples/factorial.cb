@@ -1,0 +1,19 @@
+# CINEBREW - Factorial Example
+# Computes factorial using recursion
+
+SCENE factorial(n) {
+    IF n <= 1 {
+        SHOT 1;
+    }
+    
+    SHOT n * factorial(n - 1);
+}
+
+TAKE n = 5;
+TAKE result = factorial(n);
+
+POUR "Factorial of ";
+POUR n;
+POUR " = ";
+POUR result;
+

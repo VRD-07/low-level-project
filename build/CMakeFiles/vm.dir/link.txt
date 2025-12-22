@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe qc libvm.a CMakeFiles/vm.dir/src/vm/vm.cpp.obj
+C:\MinGW\bin\ranlib.exe libvm.a

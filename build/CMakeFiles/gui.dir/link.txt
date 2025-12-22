@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe qc libgui.a CMakeFiles/gui.dir/src/gui/game_loop.cpp.obj CMakeFiles/gui.dir/src/gui/window.cpp.obj
+C:\MinGW\bin\ranlib.exe libgui.a

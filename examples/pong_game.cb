@@ -1,0 +1,95 @@
+# CINEBREW - Pong Game Example
+# A simple pong-like game written entirely in CineBrew
+
+# Game state
+TAKE ballX = 400;
+TAKE ballY = 300;
+TAKE ballVelX = 3;
+TAKE ballVelY = 3;
+TAKE paddleY = 250;
+TAKE score = 0;
+
+# Key constants (SDL2 key codes)
+TAKE KEY_UP = 82;
+TAKE KEY_DOWN = 81;
+
+# Update function - called every frame
+SCENE update() {
+    # Move ball
+    ballX = ballX + ballVelX;
+    ballY = ballY + ballVelY;
+    
+    # Bounce off top and bottom
+    IF ballY < 0 {
+        ballVelY = abs(ballVelY);
+    }
+    IF ballY > getScreenHeight() {
+        ballVelY = -abs(ballVelY);
+    }
+    
+    # Move paddle with arrow keys
+    IF keyPressed(KEY_UP) {
+        paddleY = paddleY - 5;
+    }
+    IF keyPressed(KEY_DOWN) {
+        paddleY = paddleY + 5;
+    }
+    
+    # Keep paddle on screen
+    IF paddleY < 0 {
+        paddleY = 0;
+    }
+    IF paddleY > getScreenHeight() - 100 {
+        paddleY = getScreenHeight() - 100;
+    }
+    
+    # Ball hits left wall (reset)
+    IF ballX < 0 {
+        ballX = 400;
+        ballY = 300;
+        ballVelX = 3;
+        ballVelY = 3;
+        score = score - 1;
+    }
+    
+    # Ball hits right wall (score)
+    IF ballX > getScreenWidth() {
+        ballX = 400;
+        ballY = 300;
+        ballVelX = -3;
+        ballVelY = 3;
+        score = score + 1;
+    }
+    
+    # Ball hits paddle (bounce)
+    IF ballX < 50 {
+        IF ballY > paddleY {
+            IF ballY < paddleY + 100 {
+                ballVelX = abs(ballVelX);
+            }
+        }
+    }
+    
+    SHOT 0;
+}
+
+# Render function - called every frame
+SCENE render() {
+    # Clear screen
+    clearScreen();
+    
+    # Draw paddle (white)
+    setColor(255, 255, 255);
+    drawRectangle(20, paddleY, 20, 100);
+    
+    # Draw ball (green)
+    setColor(0, 255, 0);
+    drawCircle(ballX, ballY, 10);
+    
+    # Draw score (red rectangle for now)
+    setColor(255, 0, 0);
+    drawRectangle(700, 10, 50, 30);
+    
+    SHOT 0;
+}
+

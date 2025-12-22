@@ -1,0 +1,2 @@
+C:\MinGW\bin\ar.exe qc libruntime.a CMakeFiles/runtime.dir/src/runtime/runtime.cpp.obj
+C:\MinGW\bin\ranlib.exe libruntime.a
