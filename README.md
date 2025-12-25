@@ -1,102 +1,102 @@
-CineBrew
 
-A custom programming language with a compiler, stack-based virtual machine, and runtime library, built from scratch.
 
-Overview
+# 🚀 CineBrew — Custom Programming Language & Virtual Machine ☕  
+*(Built From Scratch)*
 
-CineBrew is an educational systems project that implements a complete language toolchain. It includes a lexer, recursive-descent parser, semantic analyzer, code generator, bytecode interpreter, and a small runtime library. The project demonstrates the core layers of a programming language: compilation to an intermediate representation and execution on a virtual machine.
+CineBrew is an **educational systems-level project** that implements a complete programming language toolchain — from source code to execution — entirely from scratch.
 
-The goal is to show how a simple imperative language can be implemented end-to-end without external compiler tools or language frameworks. CineBrew compiles to a text-based bytecode format that runs on a stack-based interpreter. The language supports variables, functions, control flow, and basic I/O.
+It includes a **compiler**, a **stack-based virtual machine**, and a **minimal runtime**, designed to demonstrate how programming languages actually work under the hood.
 
-What Was Built From Scratch
+---
 
-- Lexer: Tokenization with 31 token types and 11 keywords
-- Parser: Recursive-descent parser constructing an abstract syntax tree (15 node types)
-- Semantic analyzer: Symbol table, variable and function validation
-- Code generator: AST to text-based bytecode
-- Virtual machine: Stack-based interpreter with function frames
-- Runtime: 14 built-in functions (I/O, math, timing, graphics stubs)
-- Game loop: Frame-timed update/render pattern
-- CLI interface: Single entry point for compilation and execution
+## 📌 Overview
 
-Architecture Overview
+CineBrew is a small imperative programming language that compiles into a **text-based bytecode format**, which is then executed by a **stack-based virtual machine**.
 
-The compiler pipeline takes source code, tokenizes it, parses into an AST, validates semantically, and generates bytecode. The bytecode is then executed by the VM:
+The project showcases the full lifecycle of a language:
 
-  Source Code (.cb)
-       ↓
-    Lexer (tokenize)
-       ↓
-    Parser (AST)
-       ↓
-    Semantic (validate)
-       ↓
-    CodeGen (bytecode)
-       ↓
-    VM (execute)
-       ↓
-    Output (stdout)
+**Source Code → Compilation → Bytecode → Virtual Machine → Output**
 
-Project Structure
+The goal is not performance or feature completeness, but **clarity of architecture and correctness of fundamentals** — making it ideal as a learning and demonstration project.
 
-- src/compiler: Lexer, parser, AST nodes, semantic analyzer, code generator
-- src/vm: Stack-based virtual machine and instruction dispatch
-- src/runtime: Built-in functions for I/O, math, and timing
-- src/gui: Game loop and console-based window stub
-- examples: Sample programs (hello.cb, factorial.cb, pong_game.cb)
-- tests: 8 test suites covering lexer, parser, semantic, codegen, VM, and runtime
-- docs: Language specification, bytecode reference, architecture notes
+---
 
-How to Build
+## 🧠 What Was Built From Scratch
 
-Requirements: C++17 compiler, CMake 3.10+
+### Compiler Components
+- **Lexer** — Tokenization with **31 token types** and **11 keywords**
+- **Parser** — Recursive-descent parser producing an **AST (15 node types)**
+- **Semantic Analyzer** — Symbol table, scope handling, and validation
+- **Code Generator** — AST → text-based bytecode
 
-Clone and build:
+### Runtime & Execution
+- **Virtual Machine** — Stack-based interpreter with function frames
+- **Runtime Library** — 14 built-in functions (I/O, math, timing, stubs)
+- **Game Loop** — Frame-timed update/render pattern
+- **CLI Interface** — Single entry point for compile + execute
 
-  git clone <repository>
-  cd <repository>
-  mkdir build && cd build
-  cmake ..
-  cmake --build .
+---
 
-Or on Windows with PowerShell:
+## 🏗️ Architecture Overview
 
-  .\build.ps1
+The CineBrew execution pipeline:
 
-Executables are placed in build/bin/ after a successful build.
+Source Code (.cb)
+↓
+Lexer (Tokenization)
+↓
+Parser (AST)
+↓
+Semantic Analysis
+↓
+Code Generation (Bytecode)
+↓
+Stack-Based Virtual Machine
+↓
+Output (stdout)
 
-How to Run Programs
 
-Run a CineBrew program:
+Each stage is explicitly implemented to keep the system **inspectable, debuggable, and educational**.
 
-  ./build/bin/cinebrew examples/hello.cb
+---
 
-Or using the helper script:
+## 📁 Project Structure
 
-  ./run.sh examples/hello.cb          # Linux/macOS
-  .\run.bat examples/hello.cb         # Windows
 
-The output is text-based and printed to stdout.
 
-Example Program
+src/
 
-A simple program that prints a message:
+├── compiler/ # Lexer, parser, AST, semantic analyzer, code generator
 
-  TAKE greeting
-  POUR greeting = "Hello, World!"
-  SHOT Print greeting
+├── vm/ # Stack-based virtual machine and instruction dispatch
 
-Variables are declared with TAKE, assigned with POUR, and functions are called with SHOT. The runtime Print function outputs to stdout.
+├── runtime/ # Built-in functions (I/O, math, timing)
 
-Known Limitations
+├── gui/ # Console-based game loop & window stub
+examples/ # Sample programs (hello.cb, factorial.cb, pong_game.cb)
+tests/ # 8 test suites covering all major subsystems
+docs/ # Language spec, bytecode reference, architecture notes
 
-- GUI is a console-based stub. No graphics are rendered; drawing functions print debug output.
-- Language features are intentionally minimal: integers, strings, functions, if/else, loops. No arrays, objects, or pointer semantics.
-- Performance is not optimized. The bytecode interpreter is single-pass; no caching or JIT.
-- Bytecode is text-based and not optimized for size or speed.
-- No standard library beyond 14 built-in functions.
-- Error messages are basic and may not always point to the exact line.
 
-Hackathon Context
+---
 
-This project was built during a limited-time hackathon focused on systems fundamentals. The goal was to demonstrate understanding of compiler design and virtual machine implementation, not to build a production language. Time constraints meant focusing on correctness and architectural clarity over performance or feature completeness. Trade-offs were made intentionally: the GUI is stubbed, the language is small, and the bytecode format is simple and readable rather than optimized.
+## 🧩 Language Features
+
+- Variables and assignments  
+- Functions and function calls  
+- Control flow (`if / else`, loops)  
+- Basic input/output  
+- Deterministic execution model  
+
+### CineBrew keywords
+
+```text
+TAKE,       // Variable declaration: TAKE x = 5;
+    POUR,       // Print statement: POUR x;
+    SCENE,      // Function definition: SCENE add(a, b) { ... }
+    SHOT,       // Return statement: SHOT result;
+    IF,         // Conditional: IF x > 0 { ... }
+    ELSE,       // Else clause: ELSE { ... }
+    LOOP,       // While loop: LOOP i < 10 { ... }
+    BREAK,      // Exit loop: BREAK;
+    CONTINUE,   // Skip iteration: CONTINUE;
